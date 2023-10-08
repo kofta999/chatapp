@@ -4,7 +4,7 @@ import * as chatMessagesController from "../controllers/chatMessages";
 
 const router = Router();
 
-router.post("/", isAuth, chatMessagesController.sendMessage);
-router.get("/", isAuth, chatMessagesController.getMessages)
+router.post("/:chatId", isAuth, chatMessagesController.sendMessage);
+router.get("/:chatId", isAuth, chatMessagesController.getMessages);
 
 export default router;

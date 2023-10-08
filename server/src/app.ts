@@ -1,6 +1,7 @@
 import express from "express";
 import authRouter from "./routes/auth";
 import chatMessagesRouter from "./routes/chatMessages";
+import chatsRouter from "./routes/chats";
 import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 
 app.use("/", authRouter);
 app.use("/messages", chatMessagesRouter);
+app.use("/chats", chatsRouter);
 app.use(errorHandler);
 
 export default app;

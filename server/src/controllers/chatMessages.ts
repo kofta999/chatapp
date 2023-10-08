@@ -9,19 +9,25 @@ import { getIO } from "../util/socket";
 export const sendMessage: RequestHandler = async (req, res, next) => {
   const { userId } = req;
   const { content } = req.body;
+  const { chatId } = req.params;
   const chatMessage = new ChatMessage({
     sender: userId,
     content,
+    chat: chatId,
   });
   await chatMessage.save();
-  getIO().emit("message", { ...chatMessage.toJSON() });
+  getIO().emit(chatId, { ...chatMessage.toJSON() });
   console.log("message saved");
   res.status(201);
 };
 
 export const getMessages: RequestHandler = async (req, res, next) => {
   const { userId } = req;
-  const chatMessages = await ChatMessage.find();
+  const { chatId } = req.params;
+  getIO().on(chatId, (socket) => {
+    socket.join(chatId);
+  });
+  const chatMessages = await ChatMessage.find({ chat: chatId });
   const response: CustomResponse = {
     success: true,
     status_message: "Fetched all messages",
