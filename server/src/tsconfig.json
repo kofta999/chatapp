@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    // ... other compiler options ...
+  },
+  "include": [
+    "src",
+    "types.d.ts",
+    "interfaces.d.ts"
+  ]
+}

@@ -3,8 +3,7 @@ import { Chat } from "../models/chat";
 
 export const createChat: RequestHandler = async (req, res, next) => {
   const { userId } = req;
-  const { name, isGroupChat } = req.body;
-  const participants = JSON.parse(req.body.participants);
+  const { name, isGroupChat, participants } = req.body;
   const chat = new Chat({
     name,
     participants,

@@ -7,3 +7,9 @@ interface CustomResponse {
   status_message: string;
   data: object | null;
 }
+
+namespace Express {
+  export interface Request {
+    userId?: string;
+  }
+}
