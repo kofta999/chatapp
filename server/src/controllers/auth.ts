@@ -48,7 +48,7 @@ export const login: RequestHandler = async (req, res, next) => {
     }
     const token = await new jose.SignJWT({
       userId: user._id,
-      email: user.email,
+      username: user.username,
     })
       .setExpirationTime("2h")
       .setProtectedHeader({ alg: "HS256" })

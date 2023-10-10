@@ -21,7 +21,10 @@ export const createChat: RequestHandler = async (req, res, next) => {
 
 export const getChats: RequestHandler = async (req, res, next) => {
   const { userId } = req;
-  const chats = await Chat.find({ participants: { $in: [userId] } });
+  const chats = await Chat.find({ participants: { $in: [userId] } }).populate(
+    "participants",
+    "_id username"
+  );
   const response: CustomResponse = {
     success: true,
     status_message: "Fetched all chats for user",
