@@ -16,7 +16,7 @@ export default {
     Chats,
     Button,
     CreateChat
-},
+  },
   methods: {
     async fetchChats() {
       const data = await sendAuthenticatedRequest('api/chats', 'GET')
@@ -29,7 +29,7 @@ export default {
     async createChat(chat: object) {
       const data = await sendAuthenticatedRequest('api/chats', 'POST', chat)
       console.log(data)
-      this.chats = [...this.chats, chat];
+      this.chats = [...this.chats, chat]
     }
   },
   async created() {

@@ -1,8 +1,8 @@
 <script lang="ts">
-import { computed } from 'vue';
-import { RouterView } from 'vue-router';
-import Header from './components/Header.vue';
-import { useAuthStore } from './store';
+import { computed } from 'vue'
+import { RouterView } from 'vue-router'
+import Header from './components/Header.vue'
+import { useAuthStore } from './store'
 
 export default {
   name: 'App',
@@ -11,13 +11,19 @@ export default {
     Header
   },
   setup() {
-    const store = useAuthStore();
-    const logout = store.unsetToken;
-    const isAuth = computed(() => store.isAuth); // Make isAuth reactive
+    const store = useAuthStore()
+    const unsetToken = store.unsetToken
+    const isAuth = computed(() => store.isAuth) // Make isAuth reactive
 
-    return { isAuth, logout };
+    return { isAuth, unsetToken }
+  },
+  methods: {
+    logout() {
+      this.unsetToken()
+      this.$router.push('/login')
+    }
   }
-};
+}
 </script>
 
 <template>

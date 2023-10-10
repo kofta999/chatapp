@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 import LoginForm from '@/views/LoginForm.vue'
 import SignupForm from '@/views/SignupForm.vue'
 import ChatsView from '@/views/ChatsView.vue'
+import { useAuthStore } from '@/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +10,10 @@ const router = createRouter({
     {
       path: '/chats',
       name: 'chats',
-      component: ChatsView
+      component: ChatsView,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
@@ -31,6 +34,13 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     }
   ]
+})
+
+router.beforeEach((to) => {
+  const store = useAuthStore()
+  if (!store.isAuth && to.meta.requiresAuth) {
+    return { name: 'login' }
+  }
 })
 
 export default router

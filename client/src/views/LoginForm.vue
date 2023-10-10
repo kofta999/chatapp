@@ -20,8 +20,6 @@ export default {
         alert('Please enter correct data')
         return
       }
-
-      console.log(this.email, this.password)
       const res = await fetch('api/login', {
         method: 'POST',
         headers: {
