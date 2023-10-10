@@ -1,26 +1,32 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+<script lang="ts">
+import { computed } from 'vue';
+import { RouterView } from 'vue-router';
+import Header from './components/Header.vue';
+import { useAuthStore } from './store';
+
+export default {
+  name: 'App',
+  components: {
+    RouterView,
+    Header
+  },
+  setup() {
+    const store = useAuthStore();
+    const logout = store.unsetToken;
+    const isAuth = computed(() => store.isAuth); // Make isAuth reactive
+
+    return { isAuth, logout };
+  }
+};
 </script>
 
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header> -->
-
+  <Header @logout="logout" :is-auth="isAuth" username="user" />
   <RouterView />
 </template>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
 * {
   box-sizing: border-box;
@@ -29,7 +35,7 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .container {

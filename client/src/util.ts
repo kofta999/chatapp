@@ -1,7 +1,8 @@
-import { store } from './store'
+import { useAuthStore } from './store'
 
 export async function sendAuthenticatedRequest(url: string, method: string, data = {}) {
-  const token = store.getToken()
+  const token = useAuthStore().token
+  console.log(token);
 
   const headers = {
     'Content-Type': 'application/json',

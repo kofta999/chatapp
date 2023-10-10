@@ -1,8 +1,12 @@
 <script lang="ts">
-import { store } from '@/store'
+import { useAuthStore } from '@/store'
 
 export default {
   name: 'LoginForm',
+  setup() {
+    const authStore = useAuthStore()
+    return { authStore }
+  },
   data() {
     return {
       email: '',
@@ -34,9 +38,8 @@ export default {
       }
 
       const data = await res.json()
-      console.log(data)
 
-      store.setToken(data.data.token)
+      this.authStore.setToken(data.data.token)
       this.$router.push('/chats')
     }
   }
