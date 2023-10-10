@@ -51,7 +51,7 @@ export default {
       const newChat = {
         name: this.name,
         isGroupChat: this.isGroupChat,
-        participants: [...this.participants, this.userId]
+        participants: [this.userId, ...this.participants]
       }
       this.$emit('create-chat', newChat)
 
