@@ -1,10 +1,11 @@
 <script lang="ts">
 export default {
-  name: "Button",
+  name: 'Button',
   props: {
     text: String,
     color: String
   },
+  emits: ['btn-click'],
   methods: {
     onClick() {
       this.$emit('btn-click')
@@ -14,5 +15,5 @@ export default {
 </script>
 
 <template>
-  <button @click="onClick()" :style="{ background: color }" class="btn">{{ text }}</button>
+  <button @click="onClick()" type="button" :style="{ background: color }" class="btn">{{ text }}</button>
 </template>

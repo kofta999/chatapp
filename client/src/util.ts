@@ -20,5 +20,5 @@ export async function sendAuthenticatedRequest(url: string, method: string, data
     }
   }
   const res = await fetch(url, options)
-  return await res.json()
+  return res
 }

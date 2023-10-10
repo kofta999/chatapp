@@ -8,10 +8,10 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h3>{{ chat?.name }}</h3>
+  <div class="chat">
+    <h1>{{ chat?.name }}</h1>
     <p>{{ chat?.lastMessage }}</p>
-    <p>{{ chat?.participants.join(', ') }}</p>
+    <!-- <p>{{ chat?.participants.join(', ') }}</p> -->
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
   cursor: pointer;
 }
 
-.chat h3 {
+.chat h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;

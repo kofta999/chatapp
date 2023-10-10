@@ -1,33 +1,64 @@
 <script lang="ts">
+import { sendAuthenticatedRequest } from '@/util'
+import Button from './Button.vue'
+import { useAuthStore } from '@/store'
 
 export default {
   name: 'CreateChat',
+  components: {
+    Button
+  },
+  setup() {
+    const store = useAuthStore()
+    const userId = store.userId
+    const username = store.username
+    return { userId, username }
+  },
   data() {
     return {
       name: '',
+      currentUsername: '',
       isGroupChat: false,
-      participants: ''
+      participantsVisual: [] as Array<string>,
+      participants: [] as Array<any>
     }
   },
   methods: {
+    async checkUserExists() {
+      const res = await sendAuthenticatedRequest('api/search/username', 'POST', {
+        username: this.currentUsername
+      })
+      const data = (await res.json()).data
+
+      if (res.status === 200) {
+        this.participantsVisual.push(this.currentUsername)
+        this.participants.push(data._id)
+      } else if (res.status === 404) {
+        alert('User does not exist')
+        return
+      } else if (res.status === 403) {
+        alert("You're adding yourself, pick another user")
+        return
+      }
+      this.currentUsername = ''
+    },
     async onSubmit(e: Event) {
       e.preventDefault()
-      console.log(this.name, this.isGroupChat, this.participants)
-      if (!(this.name && this.participants)) {
+      if (!this.name || this.participants.length === 0) {
         alert('Enter data correctly')
         return
       }
-      const participants = this.participants.split(',').map((participant) => participant.trim())
       const newChat = {
         name: this.name,
         isGroupChat: this.isGroupChat,
-        participants
+        participants: [...this.participants, this.userId]
       }
       this.$emit('create-chat', newChat)
 
       this.name = ''
       this.isGroupChat = false
-      this.participants = ''
+      this.participantsVisual = []
+      this.participants = []
     }
   }
 }
@@ -41,14 +72,13 @@ export default {
     </div>
 
     <div class="form-control">
-      <label for="participants">Participants:</label>
-      <input
-        v-model="participants"
-        type="text"
-        id="participants"
-        name="participants"
-        required
-      /><br />
+      <label for="currentUsername">Participants:</label>
+      <input v-model="currentUsername" type="text" id="currentUsername" name="currentUsername" />
+      <ul v-for="participant in participantsVisual">
+        <li>{{ participant }}</li>
+      </ul>
+      <Button @btn-click="checkUserExists" text="Add" color="green" />
+      <br />
     </div>
 
     <div class="form-control form-control-check">

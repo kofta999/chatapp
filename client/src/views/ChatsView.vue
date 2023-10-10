@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     async fetchChats() {
-      const data = await sendAuthenticatedRequest('api/chats', 'GET')
+      const data = (await (await sendAuthenticatedRequest('api/chats', 'GET')).json())
       console.log(data)
       return data.data
     },

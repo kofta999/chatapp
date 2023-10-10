@@ -14,8 +14,10 @@ export default {
     const store = useAuthStore()
     const unsetToken = store.unsetToken
     const isAuth = computed(() => store.isAuth) // Make isAuth reactive
+    console.log(store.username);
+    const username = computed(() => store.username)
 
-    return { isAuth, unsetToken }
+    return { isAuth, username, unsetToken }
   },
   methods: {
     logout() {
@@ -27,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <Header @logout="logout" :is-auth="isAuth" username="user" />
+  <Header @logout="logout" :is-auth="isAuth" :username="username" />
   <RouterView />
 </template>
 
