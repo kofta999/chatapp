@@ -4,7 +4,6 @@
   },
   "include": [
     "src",
-    "types.d.ts",
-    "interfaces.d.ts"
+    "../types.d.ts",
   ]
 }

@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <div :key="chat.id" v-for="chat in chats">
-    <Chat :chat="chat" />
+  <div :key="chat._id" v-for="chat in chats">
+    <Chat @onClick="$router.push(`/chats/${chat._id}`)" :chat="chat" />
   </div>
 </template>

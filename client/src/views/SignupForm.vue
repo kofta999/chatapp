@@ -11,6 +11,7 @@ export default {
   methods: {
     async signUp(e: Event) {
       e.preventDefault()
+      console.log((this.username && this.email && this.password));
       if (!(this.username && this.email && this.password)) {
         alert('Please enter correct data')
         return

@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { RouterView } from 'vue-router'
 import Header from './components/Header.vue'
 import { useAuthStore } from './store'
+import { socket } from './socket'
 
 export default {
   name: 'App',
@@ -14,7 +15,6 @@ export default {
     const store = useAuthStore()
     const unsetToken = store.unsetToken
     const isAuth = computed(() => store.isAuth) // Make isAuth reactive
-    console.log(store.username);
     const username = computed(() => store.username)
 
     return { isAuth, username, unsetToken }
@@ -22,6 +22,7 @@ export default {
   methods: {
     logout() {
       this.unsetToken()
+      socket.disconnect()
       this.$router.push('/login')
     }
   }

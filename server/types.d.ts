@@ -8,7 +8,7 @@ interface CustomResponse {
   data: object | null;
 }
 
-namespace Express {
+declare namespace Express {
   export interface Request {
     userId?: string;
   }

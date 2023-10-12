@@ -3,12 +3,13 @@ export default {
   name: 'Chat',
   props: {
     chat: Object
-  }
+  },
+  emits: ["onClick"]
 }
 </script>
 
 <template>
-  <div class="chat">
+  <div @click="$emit('onClick')" class="chat">
     <h1>{{ chat?.name }}</h1>
     <p>{{ chat?.lastMessage }}</p>
     <!-- <p>{{ chat?.participants.join(', ') }}</p> -->

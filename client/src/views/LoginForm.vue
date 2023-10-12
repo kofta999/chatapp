@@ -1,4 +1,5 @@
 <script lang="ts">
+import { socket } from '@/socket'
 import { useAuthStore } from '@/store'
 
 export default {
@@ -38,6 +39,7 @@ export default {
       const data = await res.json()
 
       this.authStore.setToken(data.data.token)
+      socket.connect()
       this.$router.push('/chats')
     }
   }

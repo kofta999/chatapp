@@ -1,5 +1,6 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import jwt_decode from 'jwt-decode'
+import { socket } from './socket'
 
 interface TokenPayload {
   userId: string
@@ -15,7 +16,8 @@ export const useAuthStore = defineStore('auth', {
     token: '',
     isAuth: false,
     userId: '',
-    username: ''
+    username: '',
+    connected: false
   }),
   actions: {
     initialize(): void {
@@ -27,6 +29,7 @@ export const useAuthStore = defineStore('auth', {
           this.userId = payload.userId
           this.username = payload.username
           this.isAuth = true
+          socket.connect()
         } catch (error) {
           // Handle token decoding error
           console.error('Error decoding token:', error)

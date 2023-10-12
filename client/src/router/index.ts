@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginForm from '@/views/LoginForm.vue'
 import SignupForm from '@/views/SignupForm.vue'
 import ChatsView from '@/views/ChatsView.vue'
+import ChatView from '@/views/ChatView.vue'
+
 import { useAuthStore } from '@/store'
 
 const router = createRouter({
@@ -11,6 +13,14 @@ const router = createRouter({
       path: '/chats',
       name: 'chats',
       component: ChatsView,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/chats/:chatId',
+      name: 'chatWindow',
+      component: ChatView,
       meta: {
         requiresAuth: true
       }
