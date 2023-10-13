@@ -20,7 +20,7 @@ const chatSchema = new Schema<IChat>(
     },
     lastMessage: {
       type: Schema.Types.ObjectId,
-      ref: "chatMessage",
+      ref: "ChatMessage",
     },
     participants: [{ type: Schema.Types.ObjectId, ref: "User" }],
     admin: {

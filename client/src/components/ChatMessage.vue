@@ -6,6 +6,18 @@ export default {
       type: Object,
       required: true
     }
+  },
+  computed: {
+    sender() {
+      return this.message.sender.username
+    },
+    messageDate() {
+      return new Date(this.message.updatedAt).toLocaleString('en-US', {
+        weekday: 'long',
+        hour: 'numeric',
+        minute: 'numeric'
+      })
+    }
   }
 }
 </script>
@@ -13,8 +25,8 @@ export default {
 <template>
   <div class="chat-message">
     <div class="message-header">
-      <span class="username">{{ message.sender }}</span>
-      <span class="timestamp">{{ message.createdAt }}</span>
+      <span class="username">{{ sender }}</span>
+      <span class="timestamp">{{ messageDate }}</span>
     </div>
     <div class="message-body">
       <p>{{ message.content }}</p>

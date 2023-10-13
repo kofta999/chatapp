@@ -17,8 +17,8 @@ initChatNamespace(io).on("connection", (socket) => {
   });
 
   socket.on("sendMessage", ({ message, roomId }) => {
-    console.log("received message");
     socket.to(roomId).emit("receiveMessage", message);
+    console.log("received message " + message.content);
   });
 
   socket.on("disconnect", () => {

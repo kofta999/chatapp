@@ -22,5 +22,6 @@ socket.on('disconnect', () => {
 })
 
 socket.on('receiveMessage', (message) => {
+  console.log('received msg')
   eventBus.emit('receiveMessage', message)
 })
