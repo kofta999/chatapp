@@ -1,6 +1,4 @@
 // TODO:
-// 1- Work more on socket.ts
-// 1- Add when a new message is sent, the chat component reacts to it
 // 2- Prettify chatMessage in chatMessage component
 // 3- Remove unnecessary clgs
 // 4- Work on how to implement group chats

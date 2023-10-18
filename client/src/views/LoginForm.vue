@@ -32,11 +32,11 @@ export default {
         })
       })
 
+      const data = await res.json()
       if (res.status !== 200) {
-        alert('Error happened while fetching from server')
+        alert(data.status_message)
       }
 
-      const data = await res.json()
 
       this.authStore.setToken(data.data.token)
       socket.connect()

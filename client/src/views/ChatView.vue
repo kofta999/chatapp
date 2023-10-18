@@ -11,7 +11,6 @@ export default {
     ChatWindow,
     ChatBox
   },
-  mounted() {},
   data() {
     return {
       messages: [] as Array<any>
@@ -19,7 +18,6 @@ export default {
   },
   async created() {
     const { chatId } = this.$route.params
-    socket.emit('getMessages', chatId)
     const res = await sendAuthenticatedRequest(`/api/chats/${chatId}`, 'GET')
     if (res.status !== 200) {
       alert('Error happened while loading messages')

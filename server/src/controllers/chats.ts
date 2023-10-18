@@ -41,7 +41,6 @@ export const getChats: RequestHandler = async (req, res, next) => {
     status_message: "Fetched all chats for user",
     data: chats,
   };
-  console.log(chats[0]);
   res.status(200).json(response);
 };
 

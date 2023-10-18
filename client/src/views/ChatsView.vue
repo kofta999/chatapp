@@ -3,6 +3,7 @@ import Chats from '@/components/Chats.vue'
 import Button from '@/components/Button.vue'
 import { sendAuthenticatedRequest } from '@/util'
 import CreateChat from '@/components/CreateChat.vue'
+import { socket } from '@/socket'
 
 export default {
   name: 'ChatsView',
@@ -12,6 +13,11 @@ export default {
       showCreateChat: false
     }
   },
+  async created() {
+    this.chats = await this.fetchChats()
+    const chatIds = this.chats.map((chat) => chat._id)
+    socket.emit('joinRooms', chatIds)
+  },
   components: {
     Chats,
     Button,
@@ -19,7 +25,7 @@ export default {
   },
   methods: {
     async fetchChats() {
-      const data = (await (await sendAuthenticatedRequest('api/chats', 'GET')).json())
+      const data = await (await sendAuthenticatedRequest('api/chats', 'GET')).json()
       console.log(data)
       return data.data
     },
@@ -31,9 +37,6 @@ export default {
       console.log(data)
       this.chats = [...this.chats, chat]
     }
-  },
-  async created() {
-    this.chats = await this.fetchChats()
   }
 }
 </script>

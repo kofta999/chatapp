@@ -1,4 +1,6 @@
 <script lang="ts">
+import { eventBus } from '@/eventBus'
+
 export default {
   name: 'Chat',
   props: {
@@ -6,6 +8,12 @@ export default {
       type: Object,
       required: true
     }
+  },
+  created() {
+    eventBus.on('receiveMessage', (message) => {
+      console.log('got message on chat component')
+      this.chat.lastMessage = message
+    })
   },
   computed: {
     lastMessage() {

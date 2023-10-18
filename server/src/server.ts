@@ -11,9 +11,11 @@ io.on("connection", (socket) => {
 });
 initChatNamespace(io).on("connection", (socket) => {
   console.log("Client connected to chat namespace");
-  socket.on("getMessages", (roomId) => {
-    console.log("Joined room " + roomId);
-    socket.join(roomId);
+  socket.on("joinRooms", (roomIds) => {
+    roomIds.forEach((room: string) => {
+      console.log("Joined room " + room);
+      socket.join(room);
+    });
   });
 
   socket.on("sendMessage", ({ message, roomId }) => {
